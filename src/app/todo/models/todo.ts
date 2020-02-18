@@ -1,6 +1,4 @@
-export class Todo {
-    id: number;
-    message: string;
-    creationDate: Date;
-    lastModified: Date;
+export class ToDo {
+    title: string;
+    isCompleted: boolean;
 }

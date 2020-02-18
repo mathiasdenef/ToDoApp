@@ -1,6 +1,10 @@
-import { Todo } from 'src/app/todo/models/todo';
+import { ToDo } from 'src/app/todo/models/todo';
 
-export interface TodoState {
-    todos: Todo[];
-    selectedTodo: Todo;
+export default class ToDoState {
+    ToDos: Array<ToDo>;
+    ToDoError: Error;
 }
+
+export const initializeState = (): ToDoState => {
+    return { ToDos: Array<ToDo>(), ToDoError: null };
+};

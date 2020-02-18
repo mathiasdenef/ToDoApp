@@ -1,19 +1,28 @@
-import { createReducer, on } from "@ngrx/store";
-import { add } from '../actions/todo.actions';
-import cloneDeep from 'lodash/clonedeep';
-import { TodoState } from '../states/todo.state';
+import ToDoState, { initializeState } from '../states/todo.state';
+import { createReducer, on, Action } from '@ngrx/store';
+import * as ToDoActions from '../actions/todo.actions';
+import { ToDo } from 'src/app/todo/models/todo';
 
-export const initialState: TodoState = { todos: [], selectedTodo: null };
+export const intialState = initializeState();
 
-const _todoReducer = createReducer(initialState,
-    on(add, (state, todo) => {
-        state.todos.push(todo);
-        let cloneState = cloneDeep(state);
-        console.log("deep copy state", cloneState);
-        return cloneState;
+const reducer = createReducer(
+    intialState,
+    on(ToDoActions.GetToDoAction, state => state),
+    on(ToDoActions.CreateToDoAction, (state: ToDoState, todo: ToDo) => {
+        return { ...state, ToDos: [...state.ToDos, todo], ToDoError: null };
+    }),
+    on(ToDoActions.SuccessGetToDoAction, (state: ToDoState, { payload }) => {
+        return { ...state, ToDos: payload };
+    }),
+    on(ToDoActions.SuccessCreateToDoAction, (state: ToDoState, { payload }) => {
+        return { ...state, ToDos: [...state.ToDos, payload], ToDoError: null };
+    }),
+    on(ToDoActions.ErrorToDoAction, (state: ToDoState, error: Error) => {
+        console.log(error);
+        return { ...state, ToDoError: error };
     })
 );
 
-export function todoReducer(state, action) {
-    return _todoReducer(state, action);
+export function ToDoReducer(state: ToDoState | undefined, action: Action) {
+    return reducer(state, action);
 }
