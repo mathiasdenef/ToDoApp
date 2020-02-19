@@ -7,11 +7,25 @@ export const intialState = initializeState();
 
 const reducer = createReducer(
     intialState,
-    on(ToDoActions.GetToDoAction, state => state),
-    on(ToDoActions.CreateToDoAction, (state: ToDoState, todo: ToDo) => {
-        return { ...state, ToDos: [...state.ToDos, todo], ToDoError: null };
+    on(ToDoActions.GetAllToDoAction, state => {
+        return state;
     }),
-    on(ToDoActions.SuccessGetToDoAction, (state: ToDoState, { payload }) => {
+    on(ToDoActions.CreateToDoAction, (state: ToDoState, { payload }) => {
+        return { ...state, ToDos: [...state.ToDos, payload], SelectedToDo: null, ToDoError: null };
+    }),
+    on(ToDoActions.DeleteToDoAction, (state: ToDoState, { payload }) => {
+        return { ...state, ToDos: [...state.ToDos.filter(x => x.title !== payload.title)], SelectedToDo: null, ToDoError: null };
+    }),
+    on(ToDoActions.SelectToDoAction, (state: ToDoState, todo: ToDo) => {
+        return { ...state, SelectedToDo: todo, ToDoError: null };
+    }),
+    on(ToDoActions.CompleteToDoAction, (state: ToDoState, {payload}) => {
+        return { ...state, ToDos: [...state.ToDos.map(x => x.title == payload.title ? { ...x, isCompleted: true } : x)], SelectedToDo: null, ToDoError: null };
+    }),
+    on(ToDoActions.UncompleteToDoAction, (state: ToDoState, {payload}) => {
+        return { ...state, ToDos: [...state.ToDos.map(x => x.title == payload.title ? { ...x, isCompleted: false } : x)], SelectedToDo: null, ToDoError: null };
+    }),
+    on(ToDoActions.SuccessGetAllToDoAction, (state: ToDoState, { payload }) => {
         return { ...state, ToDos: payload };
     }),
     on(ToDoActions.SuccessCreateToDoAction, (state: ToDoState, { payload }) => {

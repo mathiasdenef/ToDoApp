@@ -1,24 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { CreateToDoAction } from 'src/app/store/actions/todo.actions';
 
 @Component({
-  selector: 'todo-new',
-  templateUrl: './todo-new.component.html',
-  styleUrls: ['./todo-new.component.css']
+    selector: 'todo-new',
+    templateUrl: './todo-new.component.html',
+    styleUrls: ['./todo-new.component.css']
 })
 export class TodoNewComponent implements OnInit {
+    message: string;
 
-  idCounter: number = 0
-  message: string;
+    constructor(private store: Store<any>) { }
 
-  constructor(private store: Store<any>) { }
+    ngOnInit(): void {
+    }
 
-  ngOnInit(): void {
-  }
-
-  onClickAdd(message: string) {
-    this.idCounter++;
-    // let todo = <ToDo>{ id: this.idCounter, message: message, creationDate: new Date(), lastModified: new Date() }
-    // this.store.dispatch(add(todo));
-  }
+    onClickAdd(message: string) {
+        let newToDo = { title: message, isCompleted: false };
+        this.store.dispatch(CreateToDoAction({ payload: newToDo }));
+    }
 }

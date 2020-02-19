@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
+import ToDoState from 'src/app/store/states/todo.state';
+import { ToDo } from '../../models/todo';
+import { DeleteToDoAction, SelectToDoAction, CompleteToDoAction, UncompleteToDoAction } from 'src/app/store/actions/todo.actions';
 
 @Component({
     selector: 'todo-table',
@@ -9,34 +12,38 @@ import { Observable, Subscription } from 'rxjs';
 })
 export class TodoTableComponent implements OnInit {
 
-    // todos: Todo[];
-    // columnsToDisplay = ['buttons', 'id', 'message', 'creationDate'];
+    todos: ToDo[];
+    columnsToDisplay = ['buttons', 'title'];
 
-    // todoSubscription: Subscription;
+    todoSubscription: Subscription;
 
-    // constructor(private store: Store<{ todo: TodoState }>) { }
-    constructor() { }
+    constructor(private store: Store<{ todo: ToDoState }>) { }
+    // constructor() { }
 
     ngOnInit(): void {
-        this.initTodos();
-        // this.todoSubscription = this.store.pipe(select('todo'), select('todos')).subscribe(
-        //     result => {
-        //         this.todos = result;
-        //         console.log("component", result);
-        //     }
-        // );
+        this.todoSubscription = this.store.pipe(select('todo')).subscribe(
+            result => {
+                this.todos = result.ToDos;
+            });
     }
 
     ngOnDestroy() {
-        // this.todoSubscription.unsubscribe();
+        this.todoSubscription.unsubscribe();
     }
 
-    initTodos() {
-        // this.todos = [
-        //     { id: 1, message: "This is my first todo", creationDate: new Date(), lastModified: new  Date() },
-        //     { id: 2, message: "This is my second todo", creationDate: new Date(), lastModified: new  Date() },
-        //     { id: 3, message: "This is my third todo", creationDate: new Date(), lastModified: new  Date() }
-        // ];
+    selectToDo(todo: ToDo) {
+        this.store.dispatch(SelectToDoAction(todo));
     }
 
+    deleteToDo(todo: ToDo) {
+        this.store.dispatch(DeleteToDoAction({ payload: todo }));
+    }
+
+    completeToDo(todo: ToDo) {
+        this.store.dispatch(CompleteToDoAction({ payload: todo }));
+    }
+
+    uncompleteToDo(todo: ToDo) {
+        this.store.dispatch(UncompleteToDoAction({ payload: todo }));
+    }
 }

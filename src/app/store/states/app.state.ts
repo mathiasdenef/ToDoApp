@@ -1,5 +1,5 @@
-import { TodoState } from './todo.state';
+import ToDoState from './todo.state';
 
 export interface AppState {
-    todo: TodoState;
+    todo: ToDoState;
 }

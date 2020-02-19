@@ -8,6 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { TodoNewComponent } from './components/todo-new/todo-new.component';
 import { FormsModule } from '@angular/forms';
+import { ToDoEffects } from '../store/effects/todo.effects';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
     imports: [
@@ -16,7 +18,7 @@ import { FormsModule } from '@angular/forms';
         MatCardModule,
         MatTableModule,
         MatButtonModule,
-        MatInputModule,
+        MatInputModule
     ],
     declarations: [
         TodoTableComponent,

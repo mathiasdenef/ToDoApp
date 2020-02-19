@@ -8,6 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ToDoReducer } from './store/reducers/todo.reducers';
+import { ToDoEffects } from './store/effects/todo.effects';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { ToDoReducer } from './store/reducers/todo.reducers';
     AppRoutingModule,
     TodoModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({ todos: ToDoReducer }),
+    EffectsModule.forRoot([ToDoEffects]),
+    StoreModule.forRoot({ todo: ToDoReducer }),
     StoreDevtoolsModule.instrument(),
   ],
   providers: [],

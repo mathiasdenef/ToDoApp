@@ -1,28 +1,27 @@
 <mat-card style="margin-top: 30px;">
-    <!-- <table style="width: 100%" mat-table [dataSource]="todos">
+    <table style="width: 100%" mat-table [dataSource]="todos">
         <ng-container matColumnDef="buttons">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let todo" style="text-align: left;">
-                <button mat-raised-button color="primary" style="margin-right: 10px;"><i
+                <ng-container *ngIf="todo?.isCompleted">
+                    <button mat-raised-button color="accent" style="margin-right: 10px;"
+                        (click)="uncompleteToDo(todo)"><i class="fas fa-times"></i></button>
+                </ng-container>
+                <ng-container *ngIf="!todo?.isCompleted">
+                    <button mat-raised-button color="accent" style="margin-right: 10px;" (click)="completeToDo(todo)"><i
+                            class="fas fa-check"></i></button>
+                </ng-container>
+                <button mat-raised-button color="primary" style="margin-right: 10px;" (click)="selectToDo(todo)"><i
                         class="fas fa-eye"></i></button>
-                <button mat-raised-button color="warn"><i class="fas fa-trash-alt"></i></button>
+                <button mat-raised-button color="warn" (click)="deleteToDo(todo)"><i
+                        class="fas fa-trash-alt"></i></button>
             </td>
         </ng-container>
-        <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef> Id </th>
-            <td mat-cell *matCellDef="let todo"> {{todo?.id}} </td>
-        </ng-container>
-        <ng-container matColumnDef="message">
-            <th mat-header-cell *matHeaderCellDef> Message </th>
-            <td mat-cell *matCellDef="let todo"> {{todo?.message}} </td>
-        </ng-container>
-        <ng-container matColumnDef="creationDate">
-            <th mat-header-cell *matHeaderCellDef> Creation Date </th>
-            <td mat-cell *matCellDef="let todo"> {{todo?.creationDate | date: 'medium'}} </td>
+        <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef> Title </th>
+            <td mat-cell *matCellDef="let todo"> {{todo?.title}} </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
         <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
-    </table> -->
-    <!-- <button mat-raised-button color="accent" style="margin-top: 15px; margin-left: 24px;" (click)="onClickNewItem()">New Item</button> -->
-
+    </table>
 </mat-card>
