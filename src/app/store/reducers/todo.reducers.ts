@@ -19,10 +19,10 @@ const reducer = createReducer(
     on(ToDoActions.SelectToDoAction, (state: ToDoState, todo: ToDo) => {
         return { ...state, SelectedToDo: todo, ToDoError: null };
     }),
-    on(ToDoActions.CompleteToDoAction, (state: ToDoState, {payload}) => {
+    on(ToDoActions.CompleteToDoAction, (state: ToDoState, { payload }) => {
         return { ...state, ToDos: [...state.ToDos.map(x => x.title == payload.title ? { ...x, isCompleted: true } : x)], SelectedToDo: null, ToDoError: null };
     }),
-    on(ToDoActions.UncompleteToDoAction, (state: ToDoState, {payload}) => {
+    on(ToDoActions.UncompleteToDoAction, (state: ToDoState, { payload }) => {
         return { ...state, ToDos: [...state.ToDos.map(x => x.title == payload.title ? { ...x, isCompleted: false } : x)], SelectedToDo: null, ToDoError: null };
     }),
     on(ToDoActions.SuccessGetAllToDoAction, (state: ToDoState, { payload }) => {
@@ -31,9 +31,8 @@ const reducer = createReducer(
     on(ToDoActions.SuccessCreateToDoAction, (state: ToDoState, { payload }) => {
         return { ...state, ToDos: [...state.ToDos, payload], ToDoError: null };
     }),
-    on(ToDoActions.ErrorToDoAction, (state: ToDoState, error: Error) => {
-        console.log(error);
-        return { ...state, ToDoError: error };
+    on(ToDoActions.ErrorToDoAction, (state: ToDoState, { payload }) => {
+        return { ...state, ToDoError: payload };
     })
 );
 

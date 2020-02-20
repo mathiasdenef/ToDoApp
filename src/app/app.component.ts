@@ -14,8 +14,10 @@ import { GetAllToDoAction } from './store/actions/todo.actions';
 export class AppComponent {
     title = 'ToDoApp';
     todos: ToDo[];
+    todoError: Error;
     selectedTodo: ToDo;
     subscription: Subscription;
+    toDoErrorsubscription: Subscription;
 
     constructor(private store: Store<AppState>) {
 
@@ -27,13 +29,18 @@ export class AppComponent {
                 this.todos = result.ToDos;
                 this.selectedTodo = result.SelectedToDo;
             }
-        )
+        );
 
-        console.log("test1");
+        this.toDoErrorsubscription = this.store.pipe(select('todo'), select('ToDoError')).subscribe(
+            result => {
+                this.todoError = result;
+            }
+        );
         this.store.dispatch(GetAllToDoAction());
     }
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
+        this.toDoErrorsubscription.unsubscribe();
     }
 }

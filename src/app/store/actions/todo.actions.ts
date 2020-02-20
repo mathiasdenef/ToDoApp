@@ -5,12 +5,12 @@ export const GetAllToDoAction = createAction('[ToDo] - Get All ToDo');
 
 export const CreateToDoAction = createAction(
     '[ToDo] - Create ToDo',
-    props<{payload: ToDo}>()
+    props<{ payload: ToDo }>()
 );
 
 export const DeleteToDoAction = createAction(
     '[ToDo] - Delete ToDo',
-    props<{payload: ToDo}>()
+    props<{ payload: ToDo }>()
 );
 
 export const SelectToDoAction = createAction(
@@ -20,12 +20,12 @@ export const SelectToDoAction = createAction(
 
 export const CompleteToDoAction = createAction(
     '[ToDo] - Complete ToDo',
-    props<{payload: ToDo}>()
+    props<{ payload: ToDo }>()
 );
 
 export const UncompleteToDoAction = createAction(
     '[ToDo] - Uncomplete ToDo',
-    props<{payload: ToDo}>()
+    props<{ payload: ToDo }>()
 );
 
 export const BeginGetToDoAction = createAction('[ToDo] - Begin Get ToDo');
@@ -45,4 +45,4 @@ export const SuccessCreateToDoAction = createAction(
     props<{ payload: ToDo }>()
 );
 
-export const ErrorToDoAction = createAction('[ToDo] - Error', props<Error>());
+export const ErrorToDoAction = createAction('[ToDo] - Error', props<{ payload: Error }>());

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { CreateToDoAction } from 'src/app/store/actions/todo.actions';
+import { Store, select } from '@ngrx/store';
+import { CreateToDoAction, ErrorToDoAction } from 'src/app/store/actions/todo.actions';
+import { ToDo } from '../../models/todo';
 
 @Component({
     selector: 'todo-new',
@@ -9,14 +10,28 @@ import { CreateToDoAction } from 'src/app/store/actions/todo.actions';
 })
 export class TodoNewComponent implements OnInit {
     message: string;
-
+    todos: ToDo[];
     constructor(private store: Store<any>) { }
 
     ngOnInit(): void {
+        this.store.pipe(select('todo'), select('ToDos')).subscribe(
+            result => {
+                this.todos = result;
+            }
+        );
+    }
+
+    ngOnDestroy() {
+
     }
 
     onClickAdd(message: string) {
         let newToDo = { title: message, isCompleted: false };
-        this.store.dispatch(CreateToDoAction({ payload: newToDo }));
+        if (!this.todos.map(x => x.title).includes(message)) {
+            this.store.dispatch(CreateToDoAction({ payload: newToDo }));
+        } else {
+            this.store.dispatch(ErrorToDoAction({ payload: new Error("Message already exists") }));
+        }
+        this.message = undefined;
     }
 }

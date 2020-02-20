@@ -21,10 +21,12 @@ export class TodoTableComponent implements OnInit {
     // constructor() { }
 
     ngOnInit(): void {
-        this.todoSubscription = this.store.pipe(select('todo')).subscribe(
+        this.todoSubscription = this.store.pipe(select('todo'), select('ToDos')).subscribe(
             result => {
-                this.todos = result.ToDos;
+                this.todos = result;
             });
+
+
     }
 
     ngOnDestroy() {
