@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm navbar-light bg-light">
+<!-- <nav class="navbar navbar-expand-sm navbar-light bg-dark">
     <a class="navbar-brand" href="#">
         <img src="assets/icons/logo2.png" width="30" height="30" class="d-inline-block align-top" alt="">
         ToDo
@@ -13,7 +13,7 @@
             <a class="nav-link" href="https://ngrx.io/docs" target="_blank">NgRx Docs</a>
         </li>
     </ul>
-</nav>
+</nav> -->
 
 <div class="container">
     <div class="row">
@@ -22,9 +22,8 @@
             <div *ngIf="todoError" class="alert alert-danger" style="margin-top: 20px;" role="alert">
                 {{todoError?.message}}
             </div>
-            <todo-new></todo-new>
-            <todo-table *ngIf="todos?.length > 0"></todo-table>
-            <todo-card *ngIf="selectedTodo" [todo]="selectedTodo"></todo-card>
+            <todo></todo>
+            <!-- <todo-card *ngIf="selectedTodo" [todo]="selectedTodo"></todo-card> -->
         </div>
         <div class="col"></div>
     </div>

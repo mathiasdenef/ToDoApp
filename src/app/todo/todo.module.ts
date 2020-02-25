@@ -10,6 +10,7 @@ import { TodoNewComponent } from './components/todo-new/todo-new.component';
 import { FormsModule } from '@angular/forms';
 import { ToDoEffects } from '../store/effects/todo.effects';
 import { EffectsModule } from '@ngrx/effects';
+import { TodoComponent } from './components/todo/todo.component';
 
 @NgModule({
     imports: [
@@ -21,14 +22,13 @@ import { EffectsModule } from '@ngrx/effects';
         MatInputModule
     ],
     declarations: [
+        TodoComponent,
         TodoTableComponent,
         TodoCardComponent,
         TodoNewComponent,
     ],
     exports: [
-        TodoTableComponent,
-        TodoCardComponent,
-        TodoNewComponent,
+        TodoComponent,
     ],
     providers: []
 })
